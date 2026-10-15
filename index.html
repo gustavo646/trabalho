@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Você decide o futuro da IA</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: linear-gradient(135deg, #080b24, #172c58, #542b75);
+        }
+
+        .caixa-principal {
+            width: 100%;
+            max-width: 750px;
+            padding: 30px;
+            border: 1px solid #7c83ff;
+            border-radius: 20px;
+            background: rgba(10, 15, 40, 0.94);
+            box-shadow: 0 0 30px rgba(104, 91, 255, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #8deaff;
+            font-size: 2rem;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #6558f5;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #8a7fff;
+            transform: translateY(-2px);
+        }
+
+        button:focus-visible {
+            outline: 3px solid #8deaff;
+            outline-offset: 3px;
+        }
+
+        .alternativa {
+            text-align: left;
+            background: #202b50;
+            border: 1px solid #5968a5;
+        }
+
+        .alternativa:hover {
+            background: #344579;
+        }
+
+        .escondido {
+            display: none !important;
+        }
+
+        .progresso {
+            color: #8deaff;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .resultado {
+            padding: 20px;
+            border-radius: 12px;
+            background: #172746;
+        }
+
+        @media (max-width: 500px) {
+            .caixa-principal {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="caixa-principal">
+        <h1>🤖 Você decide o futuro da IA</h1>
+
+        <section id="inicio">
+            <p>
+                Novembro de 2022 marcou uma nova era para a humanidade.
+                A Inteligência Artificial começou a transformar a maneira
+                como estudamos, trabalhamos e nos comunicamos.
+            </p>
+
+            <p>
+                Mas será que essa tecnologia vai melhorar o mundo ou trazer
+                novos problemas? Suas decisões vão determinar o futuro!
+            </p>
+
+            <p><strong>Você está pronto para decidir o destino da humanidade?</strong></p>
+
+            <button id="iniciar">Começar aventura 🚀</button>
+        </section>
+
+        <section id="jogo" class="escondido">
+            <p class="progresso" id="progresso"></p>
+            <h2 id="pergunta"></h2>
+            <div id="alternativas"></div>
+        </section>
+
+        <section id="fim" class="escondido">
+            <h2>🌎 O futuro foi decidido!</h2>
+            <div class="resultado">
+                <p id="titulo-final"></p>
+                <p id="texto-resultado"></p>
+            </div>
+            <button id="jogar-novamente">Jogar novamente 🔄</button>
+        </section>
+    </main>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "1. A IA começa a realizar tarefas que antes eram feitas por pessoas. O que você decide?",
+                alternativas: [
+                    {
+                        texto: "A) Usar a IA para ajudar as pessoas e criar novas oportunidades.",
+                        pontos: 2
+                    },
+                    {
+                        texto: "B) Deixar a IA substituir os trabalhadores sem regras.",
+                        pontos: 0
+                    },
+                    {
+                        texto: "C) Proibir qualquer uso de Inteligência Artificial.",
+                        pontos: 1
+                    }
+                ]
+            },
+            {
+                pergunta: "2. Uma escola quer usar IA para ajudar os estudantes. Qual é sua decisão?",
+                alternativas: [
+                    {
+                        texto: "A) Permitir o uso como ferramenta de aprendizagem, com orientação.",
+                        pontos: 2
+                    },
+                    {
+                        texto: "B) Deixar a IA fazer todas as tarefas pelos alunos.",
+                        pontos: 0
+                    },
+                    {
+                        texto: "C) Impedir o uso da IA em qualquer atividade escolar.",
+                        pontos: 1
+                    }
+                ]
+            },
+            {
+                pergunta: "3. Uma empresa usa IA para coletar dados pessoais sem autorização. O que fazer?",
+                alternativas: [
+                    {
+                        texto: "A) Criar regras para proteger a privacidade e fiscalizar a empresa.",
+                        pontos: 2
+                    },
+                    {
+                        texto: "B) Permitir, porque a tecnologia precisa de dados.",
+                        pontos: 0
+                    },
+                    {
+                        texto: "C) Acabar com toda tecnologia digital.",
+                        pontos: 1
+                    }
+                ]
+            },
+            {
+                pergunta: "4. A IA consegue criar imagens, vídeos e notícias falsas. Como agir?",
+                alternativas: [
+                    {
+                        texto: "A) Verificar as informações e exigir transparência sobre conteúdos artificiais.",
+                        pontos: 2
+                    },
+                    {
+                        texto: "B) Compartilhar tudo sem verificar a origem.",
+                        pontos: 0
+                    },
+                    {
+                        texto: "C) Não acreditar em nenhuma informação encontrada na internet.",
+                        pontos: 1
+                    }
+                ]
+            },
+            {
+                pergunta: "5. Como você imagina o futuro ideal da Inteligência Artificial?",
+                alternativas: [
+                    {
+                        texto: "A) Uma IA responsável, que ajude a humanidade sob supervisão humana.",
+                        pontos: 2
+                    },
+                    {
+                        texto: "B) Um mundo em que as máquinas tomem todas as decisões.",
+                        pontos: 0
+                    },
+                    {
+                        texto: "C) Um mundo sem qualquer tipo de Inteligência Artificial.",
+                        pontos: 1
+                    }
+                ]
+            }
+        ];
+
+        const inicio = document.getElementById("inicio");
+        const jogo = document.getElementById("jogo");
+        const fim = document.getElementById("fim");
+        const perguntaElemento = document.getElementById("pergunta");
+        const alternativasElemento = document.getElementById("alternativas");
+        const progresso = document.getElementById("progresso");
+        const tituloFinal = document.getElementById("titulo-final");
+        const textoResultado = document.getElementById("texto-resultado");
+
+        let perguntaAtual = 0;
+        let pontuacao = 0;
+
+        document.getElementById("iniciar").addEventListener("click", iniciarJogo);
+
+        document.getElementById("jogar-novamente").addEventListener(
+            "click",
+            iniciarJogo
+        );
+
+        function iniciarJogo() {
+            perguntaAtual = 0;
+            pontuacao = 0;
+
+            inicio.classList.add("escondido");
+            fim.classList.add("escondido");
+            jogo.classList.remove("escondido");
+
+            mostrarPergunta();
+        }
+
+        function mostrarPergunta() {
+            const questao = perguntas[perguntaAtual];
+
+            progresso.textContent =
+                `Pergunta ${perguntaAtual + 1} de ${perguntas.length}`;
+
+            perguntaElemento.textContent = questao.pergunta;
+            alternativasElemento.replaceChildren();
+
+            questao.alternativas.forEach(function(alternativa) {
+                const botao = document.createElement("button");
+
+                botao.className = "alternativa";
+                botao.textContent = alternativa.texto;
+
+                botao.addEventListener("click", function() {
+                    responder(alternativa.pontos);
+                });
+
+                alternativasElemento.appendChild(botao);
+            });
+        }
+
+        function responder(pontos) {
+            pontuacao += pontos;
+            perguntaAtual++;
+
+            if (perguntaAtual < perguntas.length) {
+                mostrarPergunta();
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function mostrarResultado() {
+            jogo.classList.add("escondido");
+            fim.classList.remove("escondido");
+
+            if (pontuacao >= 8) {
+                tituloFinal.textContent = "🌟 Um futuro equilibrado e responsável!";
+                textoResultado.textContent =
+                    "Suas escolhas mostram que você acredita no potencial da IA, " +
+                    "mas também entende a importância da ética, da privacidade " +
+                    "e da supervisão humana. Nesse futuro, a tecnologia ajuda " +
+                    "as pessoas e contribui para resolver problemas sociais.";
+            } else if (pontuacao >= 5) {
+                tituloFinal.textContent = "⚖️ Um futuro cheio de desafios!";
+                textoResultado.textContent =
+                    "Suas decisões mostram cautela diante da tecnologia. " +
+                    "A humanidade precisará encontrar um equilíbrio entre " +
+                    "inovação, segurança e responsabilidade para aproveitar " +
+                    "os benefícios da Inteligência Artificial.";
+            } else {
+                tituloFinal.textContent = "🤖 Um futuro que precisa de reflexão!";
+                textoResultado.textContent =
+                    "Suas escolhas apontam para riscos relacionados ao uso " +
+                    "da IA sem responsabilidade. Será importante discutir " +
+                    "os limites da tecnologia e garantir que as decisões " +
+                    "importantes considerem os direitos e o bem-estar humano.";
+            }
+        }
+    </script>
+
+</body>
+</html>
